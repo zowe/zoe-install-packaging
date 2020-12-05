@@ -51,6 +51,16 @@ component_dir=$(find_component_directory "${component_id}")
 export LAUNCH_COMPONENT="${component_dir}/bin"
 # FIXME: change here to read manifest `commands.start` entry
 start_script=${component_dir}/bin/start.sh
+
 if [ ! -z "${component_dir}" -a -x "${start_script}" ]; then
-  . ${start_script}
+  # create log file if file logging enabled
+  create_log_file $component_id $component_dir
+  LOG_FILE=$(get_log_filename $component_id $component_dir)
+
+  if [ -n "$LOG_FILE" ]; then
+    . ${start_script} 2>&1 | tee ${LOG_FILE} | grep -E "(INFO|WARN|CRITICAL|ERROR)"
+  else
+    echo "${component_id} not logging to a file"
+    . ${start_script}
+  fi
 fi
