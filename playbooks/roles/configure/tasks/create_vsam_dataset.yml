@@ -47,7 +47,7 @@
   when: not dataset_exists
   block:
   - name: Remove ZWECSVSM.jcl or ZWECSVSM.raw.jcl if exists
-    raw: >-
+    raw: >
       rm -f "{{ work_dir_remote }}/ZWECSVSM.raw.jcl";
       rm -f "{{ work_dir_remote }}/ZWECSVSM.jcl"
 
@@ -95,4 +95,4 @@
     mv "{{ zowe_instance_dir }}/instance.env.tmp" "{{ zowe_instance_dir }}/instance.env"
 
 - name: Show caching service settings in instance.env
-  raw: cat "{{ zowe_instance_dir }}/instance.env" | grep ZWE_CACHING_SERVICE_
+  raw: cat "{{ zowe_instance_dir }}/instance.env"
