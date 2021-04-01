@@ -352,7 +352,7 @@ node('zowe-jenkins-agent-dind-wdc') {
         prPostCommentID = pipeline.github.postComment(prNumber, commentText)
       }
       
-      lock(resource: lockResources, extra: lockExtraResources) {
+      //lock(resource: lockResources, extra: lockExtraResources) {
         // timestamps {
         dir(INSTALL_TEST_PATH) {
           ansiColor('xterm') {
@@ -368,7 +368,7 @@ node('zowe-jenkins-agent-dind-wdc') {
           } // end of ansiColor
         } // end of dir
         // end of timestamps
-      } // end of lock
+      //} // end of lock
     }, //operation
     junit         : "${INSTALL_TEST_PATH}/reports/junit.xml",
     htmlReports   : [
