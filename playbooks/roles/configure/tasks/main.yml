@@ -94,6 +94,7 @@
     tasks_from: setup_certificates
   when: zos_keystore_mode is undefined or zos_keystore_mode != 'KEYSTORE_MODE_KEYRING'
 
+
 # ============================================================================
 # Setup client certificates
 
@@ -138,7 +139,6 @@
     dataset: JWTSCRT
     label: "{{ zowe_token_label }}"
   when:  zos_keystore_mode is undefined or zos_keystore_mode != 'KEYSTORE_MODE_KEYRING'
-
 # ============================================================================
 # Setup certificates for keyring (self-signed)
 - import_role:
@@ -151,8 +151,12 @@
 - import_role:
     name: configure
     tasks_from: create_sso_token
-  when: zowe_apiml_security_x509_enabled
+  when: zowe_apiml_security_x509_enabled and zos_security_system != 'ACF2'
 
+- import_role:
+    name: configure
+    tasks_from: configure_sso_token_acf2
+  when: zowe_apiml_security_x509_enabled and zos_security_system == 'ACF2'
 # ============================================================================
 # Add external API ML CA to the truststore
 - name: Add the external CA to the truststore
