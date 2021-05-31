@@ -539,7 +539,7 @@ ACF
 * A common part for all options - BEGINNING ....................... */
 * Create jwt secret ............................................... */
    SET PROFILE(USER) DIVISION(CERTDATA)
-   GENCERT &ZOWEUSER..ZOWEJWT -
+   GENCERT &ZOWEUSER..JWTSCRT -
            SUBJSDN(CN='&CN. JWT' -
                    OU='&OU.' -
                     O='&O.' -
