@@ -56,10 +56,10 @@
       "artifact": "*.pax"
     },
     "org.zowe.explorer.jobs": {
-      "version": "~1.0.0-STAGING"
+      "version": "~1.0.8-CARSON-SPRINGUPGRADE"
     },
     "org.zowe.explorer.files": {
-      "version": "~1.0.0-STAGING"
+      "version": "~1.0.9-CARSON-UPGRADESPRING"
     },
     "org.zowe.explorer-jes": {
       "version": "~1.0.0-STAGING"
@@ -284,21 +284,21 @@
       "componentGroup": "Zowe Explorer Common REST Server",
       "entries": [{
         "repository": "explorer-api-common",
-        "tag": "staging",
+        "tag": "carson/upgradeSpring",
         "destinations": ["Zowe PAX"]
       }]
     }, {
       "componentGroup": "Zowe Explorer Data Sets REST Server",
       "entries": [{
         "repository": "data-sets",
-        "tag": "staging",
+        "tag": "carson/upgradeSpring",
         "destinations": ["Zowe PAX"]
       }]
     }, {
       "componentGroup": "Zowe Explorer Jobs REST Server",
       "entries": [{
         "repository": "jobs",
-        "tag": "staging",
+        "tag": "carson/springUpgrade",
         "destinations": ["Zowe PAX"]
       }]
     }, {
