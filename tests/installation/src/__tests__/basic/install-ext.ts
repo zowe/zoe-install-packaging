@@ -13,8 +13,9 @@ import {
   showZoweRuntimeLogs,
   installAndVerifyExtension,
   installAndVerifyConvenienceBuild,
+  installAndVerifySmpePtf,
 } from '../../utils';
-import {TEST_TIMEOUT_CONVENIENCE_BUILD} from '../../constants';
+import {TEST_TIMEOUT_SMPE_PTF} from '../../constants';
 
 let beforeAllResult = false;
 const testSuiteName = 'Test sample extensions installation and verify';
@@ -28,17 +29,29 @@ describe(testSuiteName, () => {
     ]);
     //await installConvBuild
     //remove verification of conv build - for optimal runtime purposes
-    await installAndVerifyConvenienceBuild(
-      testSuiteName,
-      process.env.TEST_SERVER,
-      {
-        'zowe_build_local': process.env['ZOWE_BUILD_LOCAL'],
-        'zowe_lock_keystore': 'false',
-        //skip_start - for optimal runtime purposes
-      }
-    );
+    if(process.env['ZOWE_BUILD_LOCAL'].includes(".pax")){
+      await installAndVerifyConvenienceBuild(
+        testSuiteName,
+        process.env.TEST_SERVER,
+        {
+          'zowe_build_local': process.env['ZOWE_BUILD_LOCAL'],
+          'zowe_lock_keystore': 'false',
+          //skip_start - for optimal runtime purposes
+        }
+      );
+    } else if(process.env['ZOWE_BUILD_LOCAL'].includes(".zip")){
+      await installAndVerifySmpePtf(
+        testSuiteName,
+        process.env.TEST_SERVER,
+        {
+          'zowe_build_local': process.env['ZOWE_BUILD_LOCAL'],
+          'zowe_lock_keystore': 'false',
+        },
+        true
+      );
+    }
     beforeAllResult = true;
-  }, TEST_TIMEOUT_CONVENIENCE_BUILD);
+  }, TEST_TIMEOUT_SMPE_PTF);
 
   process.env.EXTENSIONS_LIST.split(',').forEach((extension) => {
     if (!extension){
@@ -59,7 +72,7 @@ describe(testSuiteName, () => {
           'component_id': extensionArray[0],
         }
       );
-    }, TEST_TIMEOUT_CONVENIENCE_BUILD);
+    }, TEST_TIMEOUT_SMPE_PTF);
   });
 
   afterAll(async () => {
